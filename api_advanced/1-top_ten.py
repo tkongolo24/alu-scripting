@@ -27,14 +27,40 @@ def top_ten(subreddit):
     try:
         response = requests.get(url, headers=headers,
                                 allow_redirects=False)
-        if response.status_code == 200:
-            data = response.json()
-            posts = data.get('data', {}).get('children', [])
-            for post in posts:
-                title = post.get('data', {}).get('title')
-                if title:
-                    print(title)
-        else:
-            print(None)
-    except Exception:
+    except requests.RequestException:
         print(None)
+        return
+
+    if response.status_code != 200:
+        print(None)
+        return
+
+    try:
+        data = response.json()
+    except ValueError:
+        print(None)
+        return
+
+    if 'data' not in data:
+        print(None)
+        return
+
+    data_dict = data.get('data')
+    if not data_dict or 'children' not in data_dict:
+        print(None)
+        return
+
+    posts = data_dict.get('children')
+    if not posts:
+        print(None)
+        return
+
+    count = 0
+    for post in posts:
+        if count >= 10:
+            break
+        post_data = post.get('data', {})
+        title = post_data.get('title')
+        if title:
+            print(title)
+            count += 1
