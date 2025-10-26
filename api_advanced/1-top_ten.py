@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 """
-Module to query Reddit API for hot posts
+Module to query Reddit API for hot posts.
+
+This module contains a function to retrieve and display the titles
+of the top 10 hot posts from a specified subreddit using the Reddit API.
 """
 import requests
 
