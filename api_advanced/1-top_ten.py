@@ -16,7 +16,11 @@ def top_ten(subreddit):
         return
 
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    headers = {'User-Agent': 'python:apiproject:v1.0 (by /u/yourusername)'}
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                      'AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/91.0.4472.124 Safari/537.36'
+    }
     params = {'limit': 10}
 
     try:
